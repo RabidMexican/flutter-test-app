@@ -96,50 +96,53 @@ class _MyHomePageState extends State<MyHomePage> {
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           constraints: BoxConstraints(minWidth: 600, maxWidth: 800),
-          padding: EdgeInsets.all(10),
           child: Card(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(padding: const EdgeInsets.only(top: 20)),
-                Text(
-                  'Result : $_result',
-                ),
-                TextField(
-                  controller: _inputController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                  ],
-                  onChanged: _updateNumber,
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      TextButton(
-                        child: Text('+'),
-                        onPressed: _add,
-                      ),
-                      SizedBox(height: 10),
-                      TextButton(
-                        child: Text('-'),
-                        onPressed: _subtract,
-                      ),
-                      SizedBox(height: 10),
-                      TextButton(
-                        child: Text('/'),
-                        onPressed: _divide,
-                      ),
-                      SizedBox(height: 10),
-                      TextButton(
-                        child: Text('*'),
-                        onPressed: _multiply,
-                      ),
-                    ],
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Result : $_result',
+                    style: TextStyle(fontSize: 32),
                   ),
-                ),
-              ],
+                  TextField(
+                    controller: _inputController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                    ],
+                    onChanged: _updateNumber,
+                  ),
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        SizedBox(height: 10),
+                        TextButton(
+                          child: Text('+'),
+                          onPressed: _add,
+                        ),
+                        SizedBox(height: 10),
+                        TextButton(
+                          child: Text('-'),
+                          onPressed: _subtract,
+                        ),
+                        SizedBox(height: 10),
+                        TextButton(
+                          child: Text('/'),
+                          onPressed: _divide,
+                        ),
+                        SizedBox(height: 10),
+                        TextButton(
+                          child: Text('*'),
+                          onPressed: _multiply,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
