@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Calculator',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textButtonTheme: TextButtonThemeData(
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: MyHomePage(title: 'Flutter Test App'),
+      home: MyHomePage(title: 'Flutter Calculator'),
     );
   }
 }
@@ -36,17 +36,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   int _number = 1;
   double _result = 1;
 
   TextEditingController _inputController = new TextEditingController(text: '1');
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   void _add() {
     setState(() {
