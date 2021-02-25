@@ -1,4 +1,6 @@
+import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,8 +13,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
         primarySwatch: Colors.blue,
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.blue,
+            primary: Colors.white,
+          ),
+        ),
       ),
       home: MyHomePage(title: 'Flutter Test App'),
     );
@@ -30,11 +37,48 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int _number = 1;
+  double _result = 1;
+
+  TextEditingController _inputController = new TextEditingController(text: '1');
 
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
+  }
+
+  void _add() {
+    setState(() {
+      _result += _number;
+    });
+  }
+
+  void _subtract() {
+    setState(() {
+      _result -= _number;
+    });
+  }
+
+  void _divide() {
+    setState(() {
+      _result /= _number;
+    });
+  }
+
+  void _multiply() {
+    setState(() {
+      _result *= _number;
+    });
+  }
+
+  void _updateNumber(String input) {
+    if (input.length > 0) {
+      _number = int.parse(input);
+    } else {
+      _number = 0;
+    }
+    print(_number);
   }
 
   @override
@@ -48,30 +92,56 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(padding: const EdgeInsets.only(top: 20)),
-            Text(
-              'You have pushed the button this many times :',
+        child: Container(
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          constraints: BoxConstraints(minWidth: 600, maxWidth: 800),
+          padding: EdgeInsets.all(10),
+          child: Card(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(padding: const EdgeInsets.only(top: 20)),
+                Text(
+                  'Result : $_result',
+                ),
+                TextField(
+                  controller: _inputController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
+                  onChanged: _updateNumber,
+                ),
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      TextButton(
+                        child: Text('+'),
+                        onPressed: _add,
+                      ),
+                      SizedBox(height: 10),
+                      TextButton(
+                        child: Text('-'),
+                        onPressed: _subtract,
+                      ),
+                      SizedBox(height: 10),
+                      TextButton(
+                        child: Text('/'),
+                        onPressed: _divide,
+                      ),
+                      SizedBox(height: 10),
+                      TextButton(
+                        child: Text('*'),
+                        onPressed: _multiply,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: IconButton(
-                icon: Icon(Icons.add_circle),
-                onPressed: _incrementCounter,
-                color: Theme.of(context).primaryColor,
-                hoverColor: Colors.grey.shade200,
-                highlightColor: Theme.of(context).primaryColorLight,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
